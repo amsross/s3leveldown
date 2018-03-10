@@ -17,12 +17,11 @@ require('abstract-leveldown/abstract/get-test').all(s3leveldown, test, testCommo
 require('abstract-leveldown/abstract/put-get-del-test').all(s3leveldown, test, testCommon)
 require('abstract-leveldown/abstract/close-test').close(s3leveldown, test, testCommon)
 
-// require('abstract-leveldown/abstract/iterator-test').all(s3leveldown, test, testCommon)
-
 require('abstract-leveldown/abstract/batch-test').all(s3leveldown, test, testCommon)
 require('abstract-leveldown/abstract/chained-batch-test').all(s3leveldown, test, testCommon)
 
-require('abstract-leveldown/abstract/iterator-range-test').all(s3leveldown, test)
+// require('abstract-leveldown/abstract/iterator-test').all(s3leveldown, test, testCommon)
+require('abstract-leveldown/abstract/iterator-range-test').all(s3leveldown, test, testCommon)
 
 var db
 

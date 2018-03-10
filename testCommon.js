@@ -22,7 +22,7 @@ var dbidx = 0
           db.batch(data, callback)
         })
       })
-      
+
     }
 
   , setUp = function (t) {
