@@ -8,11 +8,11 @@ var inherits = require('inherits')
 var s3 = new AWS.S3({ apiVersion: '2006-03-01' })
 
 function lt(value) {
-  return ltgt.compare(value, this._end) < 0
+  return ltgt.compare(value, this._finish) < 0
 }
 
 function lte(value) {
-  return ltgt.compare(value, this._end) <= 0
+  return ltgt.compare(value, this._finish) <= 0
 }
 
 function getStartAfterKey(key) {
@@ -47,8 +47,8 @@ function S3Iterator (db, options) {
   }
 
   self._start = ltgt.lowerBound(options)
-  self._end = ltgt.upperBound(options)
-  if (!nullEmptyUndefined(self._end)) {
+  self._finish = ltgt.upperBound(options)
+  if (!nullEmptyUndefined(self._finish)) {
     if (ltgt.upperBoundInclusive(options))
       self._test = lte
     else
@@ -57,7 +57,7 @@ function S3Iterator (db, options) {
 
   if (!nullEmptyUndefined(self._start))
     self.startAfter = ltgt.lowerBoundInclusive(options) ? getStartAfterKey(self._start) : self._start
-    
+
   debug('new iterator %o', self._options)
 }
 
@@ -66,7 +66,7 @@ inherits(S3Iterator, AbstractIterator)
 S3Iterator.prototype._next = function (callback) {
   var self = this
 
-  if (self._done++ >= self._limit || 
+  if (self._done++ >= self._limit ||
     (self.data && self.dataUpto == self.data.length && !self.s3nextContinuationToken))
     return setImmediate(callback)
 
