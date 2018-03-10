@@ -1,7 +1,6 @@
 var test = require('tape')
 var s3leveldown = require('./s3leveldown')
 var testCommon = require('./testCommon')
-var testBuffer = new Buffer('hello')
 
 if (!process.env.S3_TEST_BUCKET) {
   console.log("Please set the S3_TEST_BUCKET environment variable to run the test")
@@ -15,16 +14,15 @@ require('abstract-leveldown/abstract/open-test').open(s3leveldown, test, testCom
 require('abstract-leveldown/abstract/del-test').all(s3leveldown, test, testCommon)
 require('abstract-leveldown/abstract/put-test').all(s3leveldown, test, testCommon)
 require('abstract-leveldown/abstract/get-test').all(s3leveldown, test, testCommon)
-require('abstract-leveldown/abstract/put-get-del-test').all(
-  s3leveldown, test, testCommon, testBuffer)
+require('abstract-leveldown/abstract/put-get-del-test').all(s3leveldown, test, testCommon)
 require('abstract-leveldown/abstract/close-test').close(s3leveldown, test, testCommon)
-//require('abstract-leveldown/abstract/iterator-test').all(s3leveldown, test, testCommon)
+
+// require('abstract-leveldown/abstract/iterator-test').all(s3leveldown, test, testCommon)
 
 require('abstract-leveldown/abstract/batch-test').all(s3leveldown, test, testCommon)
 require('abstract-leveldown/abstract/chained-batch-test').all(s3leveldown, test, testCommon)
 
-require('abstract-leveldown/abstract/ranges-test').all(s3leveldown, test, testCommon)
-
+require('abstract-leveldown/abstract/iterator-range-test').all(s3leveldown, test)
 
 var db
 
